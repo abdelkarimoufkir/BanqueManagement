@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Data Comptes</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+<script type="text/javascript" src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.semanticui.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.semanticui.min.css" />
+</head>
+<body>
+
+	<div class="container">
+
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto mt-4 mb-3">
+				<h3 class="display-5">Liste des comptes</h3>
+			</div>
+		</div>
+		<table class="ui celled table" id="table">
+			<thead>
+				<tr>
+					<th scope="col">Code compte</th>
+					<th scope="col">Date Ouverture</th>
+					<th scope="col">Type de compte</th>
+					<th scope="col">Nom Client</th>
+					<th scope="col">CIN</th>
+					<th scope="col">Client type</th>
+					<th scope="col">Solde</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr th:each="compte,i : ${comptes}">
+
+					<td scope="row"><a class="btn btn-outline-primary btn-sm btn-block"
+						th:text="${compte.codeCompte}"
+						th:href="${'/clientdetails/' + compte.clientcode.id}" style="width:90%"> </a></td>
+					<td scope="row"
+						th:text="${#dates.format(compte.dateOuverture,'dd-MMM-yyyy HH:mm')}"></td>
+
+					<td scope="row" th:text="${compte.comptetype.compteTypeCode}"></td>
+					<td scope="row" th:text="${compte.clientcode.nomComplet}"></td>
+					<td scope="row" th:text="${compte.clientcode.cin}"></td>
+					<td scope="row" th:text="${compte.clientcode.clientType.clientTypeCode}"></td>
+					<td scope="row" th:text="${compte.solde}"></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+<script>
+	$('#table').DataTable( {
+	    rowReorder: true,
+	    language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
+       	 }
+	} );
+	</script>
+</body>
+</html>

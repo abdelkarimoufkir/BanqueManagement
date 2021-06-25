@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Data Clients</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+<script type="text/javascript" src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.semanticui.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.semanticui.min.css" />
+</head>
+<body>
+
+	<div class="container">
+
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto mt-4 mb-3">
+				<h3 class="display-5">Liste des clients</h3>
+			</div>
+
+		</div>
+		<table class="ui celled table" id="table" style="width:100%">
+			<thead>
+				<tr>
+					<th>ID Client</th>
+					<th>Nom Complet</th>
+					<th>Télephonne</th>
+					<th>Date Création</th>
+					<th>Login</th>
+					<th>Mot de passe</th>
+					<th>CIN</th>
+					<th>Type</th>
+				</tr>
+			
+			</thead>
+			<tbody>
+				<tr th:each="client,itemStat : ${clients}">
+					<td scope="row">
+					<a class="btn btn-outline-primary btn-sm btn-block"
+						th:text="${client.id}" th:href="${'/clientdetails/' + client.id}" style="width:90%"> </a></td>
+					<td th:text="${client.nomComplet}"/>
+					<td th:text="${client.phone}"/>
+					<td th:text="${client.dateCreation}"/>
+					<td th:text="${client.login}"/>
+					<td th:text="${client.password}"/>
+					<td th:text="${client.cin}"/>
+					<td th:text="${client.clientType.clientTypeCode}"/>
+				</tr>
+			</tbody>
+		</table>		
+								
+	</div>
+	<script>
+	$('#table').DataTable( {
+	    rowReorder: true,
+	    language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/French.json'
+       	 }
+	} );
+	</script>
+</body>
+</html>
+		

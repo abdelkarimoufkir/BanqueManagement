@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<header></header>
+<body>
+	<div class="container">
+	
+		<div id="dashboard_div" th:fragment="graph">
+				<div class="mt-4 mb-3" id="chart_div"></div>
+			<hr>
+			<div class="row bg-white">
+			<h5 class="mt-4 mb-3">Dynamique Filtre</h5>
+			<div class="px-3" id="filter_div"></div>
+				<div class=" d-flex justify-content-start">
+					<div class="col-md-6">
+						<div id="piechart"></div>
+					</div>
+					<div class="col-md-6">	
+						<div id="barchart"></div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+</body>
+</html>

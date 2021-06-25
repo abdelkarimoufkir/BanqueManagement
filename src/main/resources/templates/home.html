@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Ma Banque</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+	<div class="container">
+
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto mt-4 mb-3">
+				<h3 class="display-5">MA BANQUE DASHBOARD</h3>
+			</div>
+		</div>
+		<hr>		
+		<div class="row justify-content-around">
+		
+			<a type="button" class=" col-2 btn btn-primary position-relative mt-4 mb-3"
+				th:href="@{/dataclients}">
+				 Total Clients: <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+				 	th:text="${totalclients}"></span>
+			</a>
+			
+			<a type="button" class=" col-2 btn btn-primary position-relative mt-4 mb-3"
+				th:href="@{/datacomptes}">
+				 Total Comptes: <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+				 	th:text="${totalcomptes}"></span>
+			</a>
+			
+		</div>
+
+		<!--/*/ <th:block th:include="fragments/graph :: graph"></th:block> /*/-->
+
+	</div>
+	<script th:inline="javascript">
+        var real_data = /*[[${chartData}]]*/'noValue';
+        var calendarData = /*[[${calendarData}]]*/'noValue';
+        $(document).ready(function() {
+            google.charts.load('current', {'packages':['corechart','controls','calendar']}); 
+            google.charts.setOnLoadCallback(drawPieChart);
+            google.charts.setOnLoadCallback(drawcolumnChart);
+            google.charts.setOnLoadCallback(calendarChart);
+        });
+
+      
+         
+        function drawPieChart(){
+        	var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('number', 'solde');
+
+            Object.keys(real_data).forEach(function(key) {
+                
+                data.addRow([ key, real_data[key] ]);
+                
+            });
+            var dashboard = new google.visualization.Dashboard(
+                    document.getElementById('dashboard_div'));
+            
+            var donutRangeSlider = new google.visualization.ControlWrapper({
+                'controlType': 'NumberRangeFilter',
+                'containerId': 'filter_div',
+                'options': {
+                  'filterColumnLabel': 'solde'
+                }
+              });
+            var pieChart = new google.visualization.ChartWrapper({
+              'chartType': 'PieChart',
+              'containerId': 'piechart',
+              'options': {
+                'pieSliceText': 'solde',
+                'legend': 'right',
+                'is3D' : 'true',
+                'width' : '800',
+                'height' : '500'
+                
+              }
+            });
+
+            var barChart = new google.visualization.ChartWrapper({
+                'chartType': 'Bar',
+                'containerId': 'barchart',
+                'options': {
+                  'width' : '600',
+                  'height' : '400'
+                  
+                }
+              });
+
+           
+
+            dashboard.bind(donutRangeSlider,[pieChart,barChart]);
+
+            // Draw the dashboard.
+            dashboard.draw(data);
+            
+            
+        }
+        
+        function drawcolumnChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('number', 'solde');
+
+            Object.keys(real_data).forEach(function(key) {
+                
+                data.addRow([ key, real_data[key] ]);
+                
+            });
+            
+            var options = {
+                title : 'Rapport Tresorie',
+                hAxis : {
+                    title : 'Dates'
+                },
+                vAxis : {
+                    title : 'Solde'
+                }
+            };
+            
+            var chart = new google.visualization.ColumnChart(document
+                    .getElementById('chart_div'));
+            
+            chart.draw(data, options);
+        }
+        
+        function calendarChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn({ type: 'datetime', id: 'Date' });
+            data.addColumn({ type: 'number', id: 'solde' });
+
+            Object.keys(calendarData).forEach(function(key) {
+                
+                data.addRow([ key, calendarData[key] ]);
+                
+            });
+            
+            var options = { 
+                    height: 450,
+                    height: '100%',
+                    dateFormat: 'dd/MM/yyy',
+            };
+            var formatter = new google.visualization.DateFormat( { pattern: 'dd/MM/yyy' } );
+            formatter.format(data, 0);
+            var chart = new google.visualization.Calendar(document
+                    .getElementById('calendar_basic'));
+            
+            chart.draw(data, options);
+        }
+        
+    </script>
+</body>
+</html>

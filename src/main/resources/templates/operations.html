@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Opérations</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+
+</head>
+<body>
+
+	<div class="container">
+
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto mt-4 mb-3">
+				<h3 class="display-5">Consulter Compte / Opérations</h3>
+			</div>
+
+		</div>
+		<div class="col-md-3 offset-md-4 mt-4 mb-3">
+			<form class="form-horizontal" th:action="@{/consultercompte}"  method="get">
+				<div class="form-floating mt-4  mb-3">
+  					<input type="text" class="form-control" th:value="${codeCompte}" name="codeCompte" id="codeCompte" 
+  							placeholder="Chercher par code compte">
+  					<label for="floatingInput">Code Compte </label>
+				</div>
+                <input class="btn btn-outline-primary" type="submit" value="Chercher" />
+			</form>
+			
+			<div class="alert alert-danger mt-4 mb-3" th:if="${exception}" th:text="${exception.message}"></div>
+		
+		</div>
+		
+		<div class="row" th:if="${compte}">
+			<div class="card col-md-6 mt-4 mb-3">
+				<div class="card-body">
+					<h6 class="mb-3 text-center">Information Client</h6>
+					<hr>
+					<table class="table user-view-table m-0">
+						<tbody>
+							<tr>
+								<td>Code compte:</td>
+								<td th:text="${compte.codeCompte}"></td>
+								<td><a class="btn btn-primary" th:href="${'/clientdetails/' + compte.clientcode.id}"> Plus d'infos</a></td>
+							</tr>
+							<tr>
+								<td>Date Ouverture:</td>
+								<td th:text="${#dates.format(compte.dateOuverture,'dd-MMM-yyyy HH:mm')}"></td>
+							</tr>
+							<tr>
+								<td>Type de compte:</td>
+								<td th:text="${compte.comptetype.compteTypeCode}"></td>
+							</tr>
+							<tr>
+								<td>Nom Complet:</td>
+								<td th:text="${compte.clientcode.nomComplet}"></td>
+							</tr>
+							<tr>
+								<td>CIN:</td>
+								<td th:text="${compte.clientcode.cin}"></td>
+							</tr>
+							<tr>
+								<td>Client type:</td>
+								<td th:text="${compte.clientcode.clientType.clientTypeCode}"></td>
+							</tr>
+							<tr>
+								<td>Solde:</td>
+								<td class="badge bg-success px-2" th:text="${compte.solde} + ' MAD'"></td>
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+			<div class="card col-md-6 mt-4 mb-3">
+				<div class="card-body">
+					<h6 class="mb-3 text-center">Éffectuer une Opération</h6>
+					<hr>
+					<form class="form-horizontal mt-4 mb-3 requires-validation" novalidate th:action="@{/operation}" method="post" id="form1">
+						<input type="hidden" th:value="${compte.codeCompte}" name="codeCompte"/>
+						<div class="form-check form-check-inline " th:each="otype : ${operationtype}">
+						
+							<input class="form-check-input" type="radio"  onClick="ShowHide()" required
+							  th:value="${otype.operationTypeCode}" id="operationTypeCode" name="operationTypeCode" /> 
+							  
+							<label class="form-check-label"  th:text="${otype.operationTypeCode}"></label> 
+							
+						</div>
+						
+							<div class="form-floating mt-4  mb-3" id="codeCompte2" style="display:none;">
+  								<input type="text" class="form-control codecompte2" name="codeCompte2" placeholder="Code compte">
+  								<label for="floatingInput">Code Compte </label>
+                         		<div class="invalid-feedback">Code Compte est obligatoire!</div>
+							</div>
+						
+						<div class="form-floating mt-4  mb-3" id="montant">
+  								<input type="number" class="form-control" th:value="${montant}" name="montant" required placeholder="Veuillez saisir le montant..">
+  								<label for="floatingInput">Montant </label>
+                        		 <div class="invalid-feedback">Montant est obligatoire!</div>
+						</div>
+						<div class="mt-4 mb-3 col-auto">	
+							<button class="btn btn-outline-primary" type="submit">Valider</button>
+						</div>
+						
+				</form>
+					<div class="text-danger mt-4 mb-3" th:text="${#httpServletRequest.getParameter('erreur')}"></div>
+
+					<div class="card-body">
+						<h6 class="mb-3 text-center">Opérations Client</h6>
+						<hr>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Date D'opération</th>
+									<th scope="col">Type D'opération</th>
+									<th scope="col">Compte</th>
+									<th scope="col">Montant</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr th:each="op : ${operation}">
+									<td scope="row" th:text="${ #dates.format(op.dateOperation,'dd-MMM-yyyy HH:mm')}"/>
+									<td scope="row" th:text="${op.oprationTypeID.operationTypeCode}"/>
+									<td scope="row" th:text="${op.compteID.codeCompte}"/>
+									<td scope="row" th:text="${op.montant}"/>
+								</tr>
+							</tbody>
+						</table>
+						<nav>
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:each="p,status:${pages}">
+								<a class="page-link" th:href="@{/consultercompte(codeCompte=${compte.codeCompte},page=${status.index})}"
+									th:text="${status.index}"></a> 
+							</li>
+						</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+(function () {
+	'use strict'
+	const forms = document.querySelectorAll('.requires-validation')
+	Array.from(forms)
+	  .forEach(function (form) {
+	    form.addEventListener('submit', function (event) {
+	      if (!form.checkValidity()) {
+	        event.preventDefault()
+	        event.stopPropagation()
+	      }
+
+	      form.classList.add('was-validated')
+	    }, false)
+	  })
+	})()
+</script>
+</body>
+</html>

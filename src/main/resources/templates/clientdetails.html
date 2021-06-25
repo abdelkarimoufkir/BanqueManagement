@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Ajouter nouveau client</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" />
+
+</head>
+<body>
+
+	<div class="container bootdey flex-grow-1 container-p-y"
+		th:object="${client}">
+		
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+		<div class="media align-items-center py-3 mb-3 text-center mt-4 mb-3">
+			<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+				class=" ui-w-100 rounded-circle mb-3">
+			<div class="media-body ml-4 ">
+				<h4 class="font-weight-bold mb-0" th:text="*{nomComplet}"></h4>
+				<div class="text-muted mb-3">
+					ID: <span th:text="*{id}"></span>
+				</div>
+				<a th:href="@{'/client/modifier/'+ *{id} }"
+					class="btn btn-primary btn-sm">Modifier</a>&nbsp; <a href="#"
+					class="btn btn-default btn-sm">Profile</a>&nbsp;
+			</div>
+		</div>
+
+		<div class="card mb-4">
+
+			<div class="row no-gutters row-bordered">
+
+				<div class="col-md align-items-center">
+					<h5 class="text-center mt-4 mb-3">Information personnel</h5>
+					<hr>
+					<table class="table user-view-table m-0 card-body d-block text-body">
+						<tbody>
+							<tr>
+								<td>Verifier:</td>
+								<td><span class="fa fa-check text-primary">
+								</span>&nbsp;Oui</td>
+							</tr>
+							<tr>
+								<td>Status:</td>
+								<td th:if="${not #lists.isEmpty(compte)}"><span
+									class="badge bg-success"> Active</span></td>
+								<td th:if="${#lists.isEmpty(compte)}"><span
+									class="badge bg-danger"> NON Active</span></td>
+							</tr>
+							<tr>
+								<td>Date Création:</td>
+								<td th:text="*{ #dates.format(dateCreation,'dd-MMM-yyyy')}"></td>
+							</tr>
+
+							<tr>
+								<td>CIN:</td>
+								<td th:text="*{cin}"></td>
+							</tr>
+							<tr>
+								<td>Name:</td>
+								<td th:text="*{nomComplet}"></td>
+							</tr>
+							<tr>
+								<td>E-mail:</td>
+								<td th:text="*{email}"></td>
+							</tr>
+							<tr>
+								<td>Téléphonne:</td>
+								<td th:text="*{phone}"></td>
+							</tr>
+							<tr>
+								<td>Type client:</td>
+								<td th:text="*{clientType.clientTypeCode}"></td>
+							</tr>
+							<tr>
+								<td>Username:</td>
+								<td th:text="*{login}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class=" col-md align-items-center">
+					<h5 class="text-center mt-4 mb-3">Comptes</h5>
+					<hr>
+					<div class="px-2" th:if="${not #lists.isEmpty(compte)}">
+						<div class="mt-4 mb-3" th:each="c: ${compte}">
+							<table class="table table-hover table-bordered mb-3">
+								<thead>
+									<tr>
+										<th scope="col">Code Compte</th>
+										<th scope="col">Type de Compte</th>
+										<th scope="col">Solde</th>
+										<th scope="col">Actions</th>
+										
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td scope="row" th:text="${c.codeCompte}" />
+										<td scope="row" th:text="${c.comptetype.compteTypeCode}" />
+										<td scope="row"><b th:text="${c.solde + ' MAD'}"></b></td>
+										<td>
+										<a class="btn btn-primary"
+										 th:href="@{/consultercompte(codeCompte=${c.codeCompte})}">
+										 	<i class="fa fa-eye"></i> </a>
+											
+							 				<a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+							 					<i class="fa fa-trash"></i>
+							 				</a>	
+							 			 </td>
+									</tr>
+								</tbody>
+							</table>
+<!-- Fin Boucle compte -->	</div>	
+	
+						<div class="text-center mt-4 mb-3">
+							<a class="btn btn-primary btn-sm" th:href="@{'/compte/ajouter/' + *{id}}">
+							 	Ajouter un autre compte</a>
+						</div>
+
+				</div>
+					<div th:if="${ #lists.isEmpty(compte)}">
+						<a class="btn btn-primary" th:href="@{'/compte/ajouter/' + *{id}}"> Ajouter un compte</a>
+					</div>
+				</div>
+			</div>
+			<hr class="border-light m-0">
+		</div>
+
+	</div>
+</body>
+</html>

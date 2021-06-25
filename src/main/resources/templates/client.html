@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Ajouter nouveau client</title>
+<!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
+</head>
+<body>
+
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="row justify-content-md-center">
+			<div class="col-md-auto mt-4 mb-3">
+				<h3 class="display-5">Ajouter Nouveau Client</h3>
+			</div>
+		</div>
+		<div class="row d-flex align-items-center justify-content-center bg-light mb-3">
+			<div class="col-md-6">
+				<form class="form-horizontal requires-validation" novalidate 
+						th:action="@{/client}" method="post" th:object="${client}">
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group mt-4 mb-3">
+						<label>CIN :</label> <input class="form-control" type="text" th:field="*{cin}"  required/>
+						<div class="valid-feedback">CIN est valide!</div>
+                         <div class="invalid-feedback">Le champ CIN est obligatoire!</div>
+					</div>
+					<div class="form-group mt-4 mb-3">
+						<label>Nom Complet :</label><input class="form-control" type="text" th:field="*{nomComplet}" required/>
+						<div class="valid-feedback">Nom Complet est valide!</div>
+                         <div class="invalid-feedback">Le champ Nom est obligatoire!</div>
+					</div>	
+					<div class="form-group mt-4 mb-3">
+						 <label>Téléphone :</label><input class="form-control" type="text" th:field="*{phone}" required/> 
+						 <div class="valid-feedback">Téléphone est valide!</div>
+                         <div class="invalid-feedback">Le champ Téléphonne est obligatoire!</div>
+					</div>
+					<div class="form-group mt-4 mb-3">
+						<label>Email :</label><input class="form-control" type="email" th:field="*{email}" required/> 
+						<div class="valid-feedback">Le mail est valide!</div>
+                         <div class="invalid-feedback">Le champ Mail est obligatoire!</div>
+					</div>
+					
+					<div class="form-group mt-4 mb-3">
+						<label>Login :</label><input class="form-control" type="text" th:field="*{login}" required/> 
+						<div class="valid-feedback">Login est valide!</div>
+                         <div class="invalid-feedback">Le champ login est obligatoire!</div>
+					</div>
+					<div class="form-group mt-4 mb-3">
+						<label>Password :</label><input class="form-control" type="text" th:field="*{password}" required /> 
+						<div class="valid-feedback">Mot de passe est valide!</div>
+                         <div class="invalid-feedback">Le champ mot de passe est obligatoire!</div>
+					</div>
+					<div class="form-group mt-4 mb-3">
+						<label>Type de compte :</label>
+						<select class="form-select" th:field="*{clientType}" >
+						<option value="">----Choisir le type----</option>
+							 <option th:each="type : ${cltype}" 
+							     th:value="${type.clientTypeCode}" th:text="${type.clientTypeCode}"></option>
+						</select>
+                         <div class="invalid-feedback">Le champ type de client est obligatoire!</div>
+					</div>
+					<br>
+					<input type="submit" class="btn btn-primary btn-md float-end" value="Valider" />
+			</form>
+		</div>
+	</div>
+</div>
+	
+<script type="text/javascript">
+(function () {
+	'use strict'
+	const forms = document.querySelectorAll('.requires-validation')
+	Array.from(forms)
+	  .forEach(function (form) {
+	    form.addEventListener('submit', function (event) {
+	      if (!form.checkValidity()) {
+	        event.preventDefault()
+	        event.stopPropagation()
+	      }
+
+	      form.classList.add('was-validated')
+	    }, false)
+	  })
+	})()
+</script>
+</body>
+</html>

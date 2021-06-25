@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en" th:fragment="headsync">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="../static/js/global.js" th:src="@{/js/global.js}"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<body>
+
+<div class="container">
+		<div th:fragment="header" class="navbar-header">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+					<a class="navbar-brand" th:href="@{/}">Bank</a>
+					<button class="navbar-toggler" type="button"
+						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item"><a class="nav-link active"
+								aria-current="page" th:href="@{/client/nouveau}">Nouveau Client</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/compte/consulter}">Consulter Compte</a></li>
+						</ul>
+						
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+</body>
+</html>
