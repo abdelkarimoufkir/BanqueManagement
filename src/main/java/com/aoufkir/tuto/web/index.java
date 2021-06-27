@@ -35,10 +35,6 @@ public class index {
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
 
-	int totalcomptes;
-	int totalclients;
-	Date dates = new Date();
-	
 	@RequestMapping("/")
 	public String main(Model model) {
 		List<Comptes> comptes = (List<Comptes>)compteservice.ListComptes();
@@ -50,8 +46,8 @@ public class index {
 						Collectors.summingDouble(c -> ((Number)c.getSolde()).doubleValue())
 						));
 	
-		totalcomptes = comptes.size();
-		totalclients = clients.size();
+		int totalcomptes = comptes.size();
+		int totalclients = clients.size();
 		//System.out.println("Graph Data "+graphData);
 		model.addAttribute("chartData", graphData);
 		model.addAttribute("totalcomptes", totalcomptes);
