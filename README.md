@@ -1,5 +1,10 @@
 # GestionBanque-JavaEE-SpringBoot
-  Projet Démo en Java EE créer en Spring MVC / Spring Boot V2.5 / Thymeleaf / Bootstrap V5 / Google Visualization 
+  Projet Démo en Java EE créer en Spring MVC / Spring Boot V2.5 / Thymeleaf / MySQL (JDBC)
+  - Lombok
+  - Maven
+  - Bootstrap v5
+  - Google Visualization 
+  
  <br>
  #### Capture d'écrans
  
