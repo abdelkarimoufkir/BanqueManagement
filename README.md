@@ -3,4 +3,9 @@
  <br>
  #### Capture d'écrans
  
+ ##### <i>Accueil</i>
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/accueil.png?raw=true)
+
+<br>
+ ##### <i>Booking</i>
+![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/DataTable.png?raw=true)
