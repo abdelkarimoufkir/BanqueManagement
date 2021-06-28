@@ -19,4 +19,4 @@
 <br>
 
 ##### *operations*
-![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/operations.png?raw=true)
+![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/operationsCompte.png?raw=true)
