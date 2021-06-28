@@ -7,5 +7,5 @@
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/accueil.png?raw=true)
 
 <br>
- <i>Booking</i>
+ <i>Booking
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/DataTable.png?raw=true)
