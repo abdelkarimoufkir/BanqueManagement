@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aoufkir.tuto.entity.ClientTypes;
 import com.aoufkir.tuto.entity.Clients;
@@ -93,6 +94,15 @@ public class CompteController {
 		}
 
 		return "operations";
+	}
+	
+	@RequestMapping(value = "compte/supprimer/{id}", method = RequestMethod.POST)
+	private String Supprimercompte(@PathVariable("id") long idCompte, RedirectAttributes redirectAttrs) {
+		Comptes compte = compteservice.findCompteById(idCompte);
+		compteservice.DeleteCompte(idCompte);
+		String msg = "Compte supprimer avec succés";
+		redirectAttrs.addFlashAttribute("supprimer", msg);
+		return "redirect:/clientdetails/" + compte.getClientcode().getId();
 	}
 
 }

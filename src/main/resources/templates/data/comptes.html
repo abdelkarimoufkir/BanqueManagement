@@ -6,10 +6,9 @@
 <title>Data Comptes</title>
 <!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
 <script type="text/javascript" src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.semanticui.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.semanticui.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -18,10 +17,10 @@
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 		<div class="row justify-content-md-center">
 			<div class="col-md-auto mt-4 mb-3">
-				<h3 class="display-5">Liste des comptes</h3>
+				<h3 class="display-5">LISTE DES COMPTES</h3>
 			</div>
 		</div>
-		<table class="ui celled table" id="table">
+		<table class="table table-bordered border-primary table-hover table-striped" id="table">
 			<thead>
 				<tr>
 					<th scope="col">Code compte</th>

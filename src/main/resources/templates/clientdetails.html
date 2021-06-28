@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
-<title>Ajouter nouveau client</title>
+<title>Client profile</title>
 <!--/*/ <th:block th:include="fragments/header :: headsync"></th:block> /*/-->
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -14,23 +14,32 @@
 
 	<div class="container bootdey flex-grow-1 container-p-y"
 		th:object="${client}">
-		
+
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
-		<div class="media align-items-center py-3 mb-3 text-center mt-4 mb-3">
-			<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-				class=" ui-w-100 rounded-circle mb-3">
-			<div class="media-body ml-4 ">
-				<h4 class="font-weight-bold mb-0" th:text="*{nomComplet}"></h4>
-				<div class="text-muted mb-3">
-					ID: <span th:text="*{id}"></span>
+		<div class="media py-3 mb-3 mt-4 mb-3 text-center">
+				<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class=" ui-w-100 rounded-circle mb-3">
+				<div class="media-body">
+					<h4 class="font-weight-bold mb-0" th:text="*{nomComplet}"></h4>
+					<div class="text-muted mb-3">
+						ID: <span th:text="*{id}"></span>
+					</div>
+					<a th:href="@{'/client/modifier/'+ *{id} }"class="btn btn-primary btn-sm">Modifier</a>&nbsp; 
+					<a href="#" class="btn btn-default btn-sm">Profile</a>&nbsp;
 				</div>
-				<a th:href="@{'/client/modifier/'+ *{id} }"
-					class="btn btn-primary btn-sm">Modifier</a>&nbsp; <a href="#"
-					class="btn btn-default btn-sm">Profile</a>&nbsp;
 			</div>
+			<div class="toast-container position-absolute p-3 top-0 end-0" th:if="${supprimer}">
+				<div class="toast align-items-center text-white bg-success border-0" 
+					role="alert" aria-live="assertive" aria-atomic="true" >
+					<div class="toast-header">
+						 <strong
+							class="me-auto">Notification</strong> <small>1 seconde</small>
+						<button type="button" class="btn-close" data-bs-dismiss="toast"
+							aria-label="Close"></button>
+					</div>
+					<div class="toast-body" th:text="${supprimer}"></div>
+				</div>
 		</div>
-
 		<div class="card mb-4">
 
 			<div class="row no-gutters row-bordered">
@@ -38,12 +47,12 @@
 				<div class="col-md align-items-center">
 					<h5 class="text-center mt-4 mb-3">Information personnel</h5>
 					<hr>
-					<table class="table user-view-table m-0 card-body d-block text-body">
+					<table
+						class="table user-view-table m-0 card-body d-block text-body">
 						<tbody>
 							<tr>
 								<td>Verifier:</td>
-								<td><span class="fa fa-check text-primary">
-								</span>&nbsp;Oui</td>
+								<td><span class="fa fa-check text-primary"> </span>&nbsp;Oui</td>
 							</tr>
 							<tr>
 								<td>Status:</td>
@@ -96,7 +105,7 @@
 										<th scope="col">Type de Compte</th>
 										<th scope="col">Solde</th>
 										<th scope="col">Actions</th>
-										
+
 
 									</tr>
 								</thead>
@@ -105,34 +114,66 @@
 										<td scope="row" th:text="${c.codeCompte}" />
 										<td scope="row" th:text="${c.comptetype.compteTypeCode}" />
 										<td scope="row"><b th:text="${c.solde + ' MAD'}"></b></td>
-										<td>
-										<a class="btn btn-primary"
-										 th:href="@{/consultercompte(codeCompte=${c.codeCompte})}">
-										 	<i class="fa fa-eye"></i> </a>
-											
-							 				<a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-							 					<i class="fa fa-trash"></i>
-							 				</a>	
-							 			 </td>
+										<td><a class="btn btn-primary"
+											th:href="@{/consultercompte(codeCompte=${c.codeCompte})}">
+												<i class="fa fa-eye"></i>
+										</a> <a class="btn btn-danger" data-bs-toggle="modal"
+											th:href="@{'#confirmer'+ ${c.id} }"> <i
+												class="fa fa-trash"></i>
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
-<!-- Fin Boucle compte -->	</div>	
-	
-						<div class="text-center mt-4 mb-3">
-							<a class="btn btn-primary btn-sm" th:href="@{'/compte/ajouter/' + *{id}}">
-							 	Ajouter un autre compte</a>
+
+							<!-- Confirmation de suppression -->
+							<div class="modal fade" th:id="@{'confirmer'+ ${c.id} }"
+								data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+								aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="staticBackdropLabel">Confirmation
+												de la suppression</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">Êtes-vous sûr de vouloir
+											supprimer ce compte ?</div>
+										<div class="modal-footer">
+											<form th:action="@{'/compte/supprimer/'+ ${c.id} }"
+												method="post">
+												<input type="submit" class="btn btn-primary"
+													value="Confirmer" />
+											</form>
+											<button type="button" class="btn btn-danger"
+												data-bs-dismiss="modal">Annuler</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Fin Boucle compte -->
 						</div>
 
-				</div>
+						<div class="text-center mt-4 mb-3">
+							<a class="btn btn-primary btn-sm"
+								th:href="@{'/compte/ajouter/' + *{id}}"> Ajouter un autre
+								compte</a>
+						</div>
+
+					</div>
 					<div th:if="${ #lists.isEmpty(compte)}">
-						<a class="btn btn-primary" th:href="@{'/compte/ajouter/' + *{id}}"> Ajouter un compte</a>
+						<a class="btn btn-primary" th:href="@{'/compte/ajouter/' + *{id}}">
+							Ajouter un compte</a>
 					</div>
 				</div>
 			</div>
 			<hr class="border-light m-0">
 		</div>
-
+<script>
+    $(document).ready(function() {
+        $(".toast").toast('show');
+    });
+</script>
 	</div>
 </body>
 </html>
