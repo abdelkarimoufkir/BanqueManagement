@@ -3,17 +3,17 @@
  <br>
  #### Capture d'écrans
  
- ##### <i>Accueil</i>
+ ##### *Accueil*
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/accueil.png?raw=true)
 
 <br>
- ##### <i>Booking</i>
+ ##### *Booking*
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/DataTable.png?raw=true)
 
 <br>
- ##### <i>Compte Détail</i>
+ ##### *Compte Détail*
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/comptedetail.png?raw=true)
 
 <br>
- ##### <i>operations</i>
+ ##### *operations*
 ![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/operations.png?raw=true)
