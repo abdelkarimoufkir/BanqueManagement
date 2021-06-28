@@ -3,4 +3,4 @@
  <br>
  #### Capture d'écrans
  
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/abdelkarimoufkir/GestionBanque-JavaEE-SpringBoot/blob/master/screenshots/V1/accueil.png?raw=true)
